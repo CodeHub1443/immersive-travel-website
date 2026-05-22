@@ -1939,61 +1939,105 @@ footer#contact {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// MOBILE RESPONSIVENESS  —  breakpoints: 768px · 480px
+// MOBILE RESPONSIVENESS  —  breakpoints: 900px · 768px · 480px · 360px
 // ═══════════════════════════════════════════════════════════════════
 
+// ─── Touch-device overrides ──────────────────────────────────────
+// Elements with hover-only reveal become permanently visible on touch
+@media (hover: none) {
+  // Destination arrow always shown
+  .dest-card .dest-arrow { opacity: 1 !important; transform: none !important; }
+
+  // Experience panel text + button always shown (no hover needed)
+  .exp-content p      { max-height: 80px !important; opacity: 0.9 !important; }
+  .exp-content .exp-btn { opacity: 1 !important; transform: none !important; }
+
+  // Gallery icon hint always visible
+  .gallery-item .gallery-hover .gallery-icon {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+// ─── Tablet (≤ 900px) ────────────────────────────────────────────
+@media (max-width: 900px) {
+  #navbar          { padding: 16px 28px; }
+  #navbar.scrolled { padding: 12px 28px; }
+  .section-cta     { margin-top: 44px; }
+}
+
+// ─── Mobile (≤ 768px) ────────────────────────────────────────────
 @media (max-width: 768px) {
 
+  // ── Navbar ───────────────────────────────────────────────────────
+  #navbar          { padding: 14px 20px; }
+  #navbar.scrolled { padding: 10px 20px; }
+
+  // ── Global section spacing ────────────────────────────────────────
+  .section-header { margin-bottom: 40px; }
+  .section-cta    { margin-top: 36px; }
+
   // ── Hero ─────────────────────────────────────────────────────────
-  // Hide scroll hint — pagination sits at the bottom on mobile
+  // Scroll hint hidden — thumb strip fills that space
   .scroll-hint { display: none; }
 
-  // Reposition text panel from top-left to bottom, full width
-  // bottom = thumbnail-strip height (72) + gap (24) + pagination (84) + breathing room (20)
+  // Text panel: lift high enough to clear thumbnail strip + pagination
+  // Thumbnail strip starts ≈ 92px from bottom; pagination ≈ 176px from bottom.
+  // Keeping bottom ≥ 215px gives ~40px breathing room above pagination.
   .details {
     top: auto;
-    bottom: 210px;
+    bottom: 215px;
     left: 20px;
     right: 20px;
 
-    .title-1, .title-2 { font-size: clamp(36px, 9.5vw, 72px); }
+    .place-box           { height: 36px; }
+    .place-box .text     { font-size: 16px; padding-top: 10px; }
+    .title-box-1,
+    .title-box-2         { height: 74px; }
+    .title-1, .title-2   { font-size: clamp(32px, 9vw, 60px); }
 
     > .desc {
       width: 100%;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.55;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
-    > .cta { width: 100%; margin-top: 16px; }
+    > .cta { width: 100%; margin-top: 14px; }
   }
 
-  // Thumbnail card-content text is too small on mobile — hide it
+  // Thumbnail card-text labels too small on mobile
   .card-content { display: none !important; }
 
-  // Shrink the progress bar to fit the narrower viewport
-  .pagination {
-    .progress-sub-container {
-      width: calc(100vw - 190px);
-      min-width: 60px;
-      .progress-sub-background { width: 100%; }
-    }
+  // Progress bar scales to available width
+  .pagination .progress-sub-container {
+    width: calc(100vw - 190px);
+    min-width: 60px;
+    .progress-sub-background { width: 100%; }
   }
 
   // ── Section padding ───────────────────────────────────────────────
-  #booking      { padding: 80px 5vw; }
-  #facts        { padding: 80px 5vw; }
-  #gallery      { padding: 80px 5vw; }
-  #tourism-info { padding: 80px 5vw; }
-  #app-download { padding: 80px 5vw; }
-  #newsletter   { padding: 80px 5vw; }
+  #destinations { padding: 60px 0 0; }
+  #booking      { padding: 64px 5vw; }
+  #facts        { padding: 64px 5vw; }
+  #gallery      { padding: 64px 5vw; }
+  #tourism-info { padding: 64px 5vw; }
+  #app-download { padding: 64px 5vw; }
+  #newsletter   { padding: 64px 5vw; }
   #experiences  {
-    padding: 80px 0 0;
+    padding: 60px 0 0;
     .section-header { padding: 0 5vw; }
   }
 
-  // ── Destinations — native CSS touch-scroll ────────────────────────
-  // GSAP pin is skipped in JS; this takes over
+  // ── Destinations ─────────────────────────────────────────────────
+  // GSAP pin is skipped (see JS); CSS touch-scroll takes over
+  .dest-header {
+    padding: 0 5vw 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+    .dest-scroll-hint { font-size: 11px; }
+  }
+
   .dest-h-viewport {
     overflow-x: auto;
     overflow-y: hidden;
@@ -2003,22 +2047,21 @@ footer#contact {
     &::-webkit-scrollbar { display: none; }
   }
 
-  .dest-header { padding: 0 5vw 36px; }
-
-  .destinations-grid { padding: 0 5vw 40px; gap: 14px; }
+  .destinations-grid { padding: 0 5vw 36px; gap: 12px; }
 
   .dest-card {
-    flex: 0 0 80vw;
-    height: 420px;
+    flex: 0 0 78vw;
+    height: 400px;
     scroll-snap-align: start;
+    .dest-arrow { opacity: 1; transform: none; } // always show on touch
+
     &:first-child {
-      flex: 0 0 80vw;
-      .dest-title { font-size: 28px; }
+      flex: 0 0 78vw;
+      .dest-title { font-size: 26px; }
     }
   }
 
-  // Progress bar has no scroll listener on mobile — hide it
-  .dest-h-footer { display: none; }
+  .dest-h-footer { display: none; } // no scroll listener on mobile
 
   // ── Booking ───────────────────────────────────────────────────────
   .booking-tabs {
@@ -2027,23 +2070,36 @@ footer#contact {
     &::-webkit-scrollbar { display: none; }
     .tab-btn {
       flex: 0 0 auto;
-      padding: 14px 16px;
+      padding: 14px 12px;
       font-size: 11px;
-      gap: 6px;
+      gap: 5px;
       white-space: nowrap;
     }
   }
 
-  .tab-content { padding: 24px 16px; }
+  .tab-content { padding: 22px 16px; }
+  .search-btn  { width: 100%; justify-content: center; }
 
-  .search-btn { width: 100%; justify-content: center; }
+  // ── Gallery ───────────────────────────────────────────────────────
+  .gallery-mosaic {
+    gap: 8px;
+    grid-auto-rows: 190px;
+  }
+
+  // ── Facts ─────────────────────────────────────────────────────────
+  .fact-card {
+    padding: 32px 20px;
+    .fact-number { font-size: 44px; }
+    .fact-unit   { font-size: 20px; }
+  }
+
+  // ── Tourism Info ──────────────────────────────────────────────────
+  .info-cards-row { gap: 14px; }
 
   // ── App download ──────────────────────────────────────────────────
-  // Floating chips overflow on narrow screens — hide them
-  .phone-chip { display: none; }
-
+  .phone-chip       { display: none; } // chips overflow narrow screens
+  .app-mockup-col   { margin-top: 8px; }
   .phone-float-wrap { width: 240px; }
-
   .phone-frame {
     width: 240px;
     height: 496px;
@@ -2051,41 +2107,93 @@ footer#contact {
     border-width: 6px;
   }
 
+  // ── Newsletter ────────────────────────────────────────────────────
+  .newsletter-form { flex-direction: column; gap: 10px; }
+
   // ── Footer ────────────────────────────────────────────────────────
-  .footer-top { padding: 60px 5vw 40px; gap: 32px; }
+  .footer-top { padding: 56px 5vw 36px; gap: 28px; }
 }
 
-// ── Small phones (480px and below) ───────────────────────────────
+// ─── Small phones (≤ 480px) ──────────────────────────────────────
 @media (max-width: 480px) {
 
-  // Navbar
-  #navbar { padding: 14px 20px; }
-  .nav-brand-text { font-size: 17px; }
+  // Navbar — tighten on small phones
+  #navbar          { padding: 12px 16px; }
+  .nav-brand-text  { font-size: 17px; }
 
-  // Hero — very tight screens: drop description, shrink title
+  // Hero — do NOT lower `bottom` below 215px.
+  // At 480px viewport width, cardHeight ≈ 68px, paginTop is ≈ 176px from bottom.
+  // Reducing bottom below that causes details to overlap the pagination strip.
   .details {
-    bottom: 90px;
+    bottom: 215px;
     left: 16px;
     right: 16px;
 
-    .title-1, .title-2 { font-size: clamp(30px, 10vw, 50px); }
+    .title-box-1,
+    .title-box-2   { height: 66px; }
+    .title-1,
+    .title-2       { font-size: clamp(28px, 9.5vw, 48px); }
 
-    > .desc { display: none; }
-
+    > .desc        { display: none; }   // too cramped on small screens
     > .cta .discover { font-size: 11px; padding: 4px 14px; }
   }
 
-  // One card nearly fills the screen
+  // Section padding — tighter on very small screens
+  #booking, #facts, #gallery, #tourism-info, #app-download, #newsletter {
+    padding: 52px 4vw;
+  }
+  #experiences { padding: 52px 0 0; .section-header { padding: 0 4vw; } }
+  #destinations { padding: 50px 0 0; }
+
+  .section-header { margin-bottom: 32px; }
+
+  // Destinations — cards nearly fill screen width
   .dest-card {
     flex: 0 0 88vw;
-    height: 380px;
+    height: 360px;
     &:first-child { flex: 0 0 88vw; }
   }
 
-  // Section headings — prevent overflow on very narrow screens
-  .section-title { font-size: clamp(28px, 8vw, 60px); }
+  // Gallery — single column, undo span rules that break 1-col layout
+  .gallery-mosaic {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+    gap: 8px;
+  }
+  .gallery-item {
+    &:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+    &:nth-child(4) { grid-column: span 1; }
+    &:nth-child(7) { grid-column: span 1; }
+  }
 
-  // App badges stack vertically
+  // Facts — compact cards, keep 2-column grid (1fr in base still applies from 480px rule above)
+  .facts-grid { grid-template-columns: repeat(2, 1fr); } // override the 1fr set in component
+
+  .fact-card {
+    padding: 24px 14px;
+    .fact-number { font-size: 36px; }
+    .fact-unit   { font-size: 17px; }
+    .fact-label  { font-size: 11px; letter-spacing: 0.04em; }
+  }
+
+  // Section headings — fluid clamp scaled down
+  .section-title { font-size: clamp(26px, 8vw, 60px); }
+
+  // App
   .app-badges { gap: 10px; }
   .app-badge  { padding: 10px 16px; }
+}
+
+// ─── Very small phones (≤ 360px) ─────────────────────────────────
+@media (max-width: 360px) {
+  .details {
+    .title-1, .title-2 { font-size: 28px; }
+    > .cta { flex-wrap: wrap; gap: 8px; }
+  }
+
+  .dest-card { flex: 0 0 92vw; height: 340px; &:first-child { flex: 0 0 92vw; } }
+
+  .fact-card  { .fact-number { font-size: 30px; } }
+
+  .section-title { font-size: clamp(24px, 7.5vw, 60px); }
 }

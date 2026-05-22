@@ -504,33 +504,38 @@ makeCounter('dec-rooms',     'inc-rooms',     'room-count',     1, 10);
 // ─── GSAP ScrollTrigger — Parallax & Animations ───────────────────
 gsap.registerPlugin(ScrollTrigger);
 
-// Parallax backgrounds
-document.querySelectorAll('.parallax-section .parallax-bg').forEach(bg => {
-    gsap.to(bg, {
-        yPercent: 25,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: bg.closest('.parallax-section'),
-            start: 'top bottom',
-            end:   'bottom top',
-            scrub: true
-        }
-    });
-});
+const isMobileViewport = window.innerWidth < 768;
 
-// Experience panel parallax
-document.querySelectorAll('.exp-panel .exp-bg').forEach(bg => {
-    gsap.to(bg, {
-        yPercent: 18,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: bg.closest('.exp-panel'),
-            start: 'top bottom',
-            end:   'bottom top',
-            scrub: true
-        }
+// Parallax backgrounds — skip on mobile (saves GPU on low-end devices;
+// the effect is barely perceptible on small screens anyway)
+if (!isMobileViewport) {
+    document.querySelectorAll('.parallax-section .parallax-bg').forEach(bg => {
+        gsap.to(bg, {
+            yPercent: 25,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: bg.closest('.parallax-section'),
+                start: 'top bottom',
+                end:   'bottom top',
+                scrub: true
+            }
+        });
     });
-});
+
+    // Experience panel parallax (desktop only)
+    document.querySelectorAll('.exp-panel .exp-bg').forEach(bg => {
+        gsap.to(bg, {
+            yPercent: 18,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: bg.closest('.exp-panel'),
+                start: 'top bottom',
+                end:   'bottom top',
+                scrub: true
+            }
+        });
+    });
+}
 
 // ─── Horizontal Pin Scroll — Destinations ────────────────────────
 // Must run after cards are in the DOM (destinations-grid is populated above at top)
@@ -577,30 +582,33 @@ document.querySelectorAll('.exp-panel .exp-bg').forEach(bg => {
     });
 }());
 
+// Shared mobile flag for tuning animation distances
+const mob = isMobileViewport;
+
 // Gallery items stagger
 gsap.from('.gallery-item', {
     opacity: 0,
-    scale: 0.92,
-    stagger: 0.07,
-    duration: 0.7,
+    scale: mob ? 0.96 : 0.92,
+    stagger: mob ? 0.05 : 0.07,
+    duration: mob ? 0.5 : 0.7,
     ease: 'power2.out',
     scrollTrigger: {
         trigger: '.gallery-mosaic',
-        start: 'top 80%'
+        start: 'top 85%'
     }
 });
 
 // Info cards stagger — clearProps ensures no residual y-transform lingers on card 4
 gsap.from('.info-card', {
     opacity: 0,
-    y: 40,
-    stagger: 0.1,
-    duration: 0.65,
+    y: mob ? 24 : 40,
+    stagger: mob ? 0.07 : 0.1,
+    duration: mob ? 0.5 : 0.65,
     ease: 'power2.out',
     clearProps: 'transform,opacity',
     scrollTrigger: {
         trigger: '.info-cards-row',
-        start: 'top 80%',
+        start: 'top 85%',
         once: true
     }
 });
@@ -608,13 +616,13 @@ gsap.from('.info-card', {
 // Fact cards stagger
 gsap.from('.fact-card', {
     opacity: 0,
-    y: 50,
-    stagger: 0.12,
-    duration: 0.7,
+    y: mob ? 24 : 50,
+    stagger: mob ? 0.07 : 0.12,
+    duration: mob ? 0.5 : 0.7,
     ease: 'power2.out',
     scrollTrigger: {
         trigger: '.facts-grid',
-        start: 'top 80%'
+        start: 'top 85%'
     }
 });
 
@@ -644,15 +652,17 @@ document.querySelectorAll('.fact-number[data-count]').forEach(el => {
 
 // ─── Reveal Animations ───────────────────────────────────────────
 // Delay slightly for staggered groups
+// On mobile, fire reveals earlier so elements aren't still hidden
+// when the user can already see them (small viewport = less scroll travel)
 const revealObserver = new IntersectionObserver(entries => {
     entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-            entry.target.style.transitionDelay = `${i * 0.08}s`;
+            entry.target.style.transitionDelay = `${i * (mob ? 0.05 : 0.08)}s`;
             entry.target.classList.add('revealed');
             revealObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
 document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
 
@@ -728,53 +738,55 @@ if (scrollHint) {
     destinations.parentNode.insertBefore(strip, destinations);
 }());
 
-// ─── Phone mockup tilt on mouse move ─────────────────────────────
-(function initPhoneTilt() {
-    const phoneWrap = document.querySelector('.phone-float-wrap');
-    if (!phoneWrap) return;
+// ─── Phone mockup tilt on mouse move (desktop only) ──────────────
+if (!isMobileViewport) {
+    (function initPhoneTilt() {
+        const phoneWrap = document.querySelector('.phone-float-wrap');
+        if (!phoneWrap) return;
 
-    phoneWrap.closest('.app-mockup-col').addEventListener('mousemove', e => {
-        const rect   = phoneWrap.getBoundingClientRect();
-        const cx     = rect.left + rect.width  / 2;
-        const cy     = rect.top  + rect.height / 2;
-        const rotY   = ((e.clientX - cx) / (rect.width  / 2)) * 10;
-        const rotX   = -((e.clientY - cy) / (rect.height / 2)) * 8;
-        gsap.to(phoneWrap, {
-            rotationY: rotY,
-            rotationX: rotX,
-            transformPerspective: 800,
-            ease: 'power1.out',
-            duration: 0.5
+        phoneWrap.closest('.app-mockup-col').addEventListener('mousemove', e => {
+            const rect   = phoneWrap.getBoundingClientRect();
+            const cx     = rect.left + rect.width  / 2;
+            const cy     = rect.top  + rect.height / 2;
+            const rotY   = ((e.clientX - cx) / (rect.width  / 2)) * 10;
+            const rotX   = -((e.clientY - cy) / (rect.height / 2)) * 8;
+            gsap.to(phoneWrap, {
+                rotationY: rotY,
+                rotationX: rotX,
+                transformPerspective: 800,
+                ease: 'power1.out',
+                duration: 0.5
+            });
         });
-    });
 
-    phoneWrap.closest('.app-mockup-col').addEventListener('mouseleave', () => {
-        gsap.to(phoneWrap, { rotationY: 0, rotationX: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' });
-    });
-}());
+        phoneWrap.closest('.app-mockup-col').addEventListener('mouseleave', () => {
+            gsap.to(phoneWrap, { rotationY: 0, rotationX: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' });
+        });
+    }());
+}
 
 // ─── App mockup entrance scroll animation ────────────────────────
 gsap.from('.phone-float-wrap', {
-    y: 80,
+    y: mob ? 40 : 80,
     opacity: 0,
-    duration: 1.2,
+    duration: mob ? 0.8 : 1.2,
     ease: 'power3.out',
     scrollTrigger: {
         trigger: '#app-download',
-        start: 'top 75%',
+        start: 'top 80%',
         once: true
     }
 });
 
 gsap.from('.app-text-col > *', {
-    y: 40,
+    y: mob ? 20 : 40,
     opacity: 0,
-    stagger: 0.12,
-    duration: 0.8,
+    stagger: mob ? 0.08 : 0.12,
+    duration: mob ? 0.55 : 0.8,
     ease: 'power2.out',
     scrollTrigger: {
         trigger: '#app-download',
-        start: 'top 75%',
+        start: 'top 80%',
         once: true
     }
 });
