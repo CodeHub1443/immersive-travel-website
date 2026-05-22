@@ -1919,3 +1919,155 @@ footer#contact {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// MOBILE RESPONSIVENESS  —  breakpoints: 768px · 480px
+// ═══════════════════════════════════════════════════════════════════
+
+@media (max-width: 768px) {
+
+  // ── Hero ─────────────────────────────────────────────────────────
+  // Hide scroll hint — pagination sits at the bottom on mobile
+  .scroll-hint { display: none; }
+
+  // Reposition text panel from top-left to bottom, full width
+  // bottom = thumbnail-strip height (72) + gap (24) + pagination (84) + breathing room (20)
+  .details {
+    top: auto;
+    bottom: 210px;
+    left: 20px;
+    right: 20px;
+
+    .title-1, .title-2 { font-size: clamp(36px, 9.5vw, 72px); }
+
+    > .desc {
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 10px;
+    }
+
+    > .cta { width: 100%; margin-top: 16px; }
+  }
+
+  // Thumbnail card-content text is too small on mobile — hide it
+  .card-content { display: none !important; }
+
+  // Shrink the progress bar to fit the narrower viewport
+  .pagination {
+    .progress-sub-container {
+      width: calc(100vw - 190px);
+      min-width: 60px;
+      .progress-sub-background { width: 100%; }
+    }
+  }
+
+  // ── Section padding ───────────────────────────────────────────────
+  #booking      { padding: 80px 5vw; }
+  #facts        { padding: 80px 5vw; }
+  #gallery      { padding: 80px 5vw; }
+  #tourism-info { padding: 80px 5vw; }
+  #app-download { padding: 80px 5vw; }
+  #newsletter   { padding: 80px 5vw; }
+  #experiences  {
+    padding: 80px 0 0;
+    .section-header { padding: 0 5vw; }
+  }
+
+  // ── Destinations — native CSS touch-scroll ────────────────────────
+  // GSAP pin is skipped in JS; this takes over
+  .dest-h-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .dest-header { padding: 0 5vw 36px; }
+
+  .destinations-grid { padding: 0 5vw 40px; gap: 14px; }
+
+  .dest-card {
+    flex: 0 0 80vw;
+    height: 420px;
+    scroll-snap-align: start;
+    &:first-child {
+      flex: 0 0 80vw;
+      .dest-title { font-size: 28px; }
+    }
+  }
+
+  // Progress bar has no scroll listener on mobile — hide it
+  .dest-h-footer { display: none; }
+
+  // ── Booking ───────────────────────────────────────────────────────
+  .booking-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 14px 16px;
+      font-size: 11px;
+      gap: 6px;
+      white-space: nowrap;
+    }
+  }
+
+  .tab-content { padding: 24px 16px; }
+
+  .search-btn { width: 100%; justify-content: center; }
+
+  // ── App download ──────────────────────────────────────────────────
+  // Floating chips overflow on narrow screens — hide them
+  .phone-chip { display: none; }
+
+  .phone-float-wrap { width: 240px; }
+
+  .phone-frame {
+    width: 240px;
+    height: 496px;
+    border-radius: 40px;
+    border-width: 6px;
+  }
+
+  // ── Footer ────────────────────────────────────────────────────────
+  .footer-top { padding: 60px 5vw 40px; gap: 32px; }
+}
+
+// ── Small phones (480px and below) ───────────────────────────────
+@media (max-width: 480px) {
+
+  // Navbar
+  #navbar { padding: 14px 20px; }
+  .nav-brand-text { font-size: 17px; }
+
+  // Hero — very tight screens: drop description, shrink title
+  .details {
+    bottom: 90px;
+    left: 16px;
+    right: 16px;
+
+    .title-1, .title-2 { font-size: clamp(30px, 10vw, 50px); }
+
+    > .desc { display: none; }
+
+    > .cta .discover { font-size: 11px; padding: 4px 14px; }
+  }
+
+  // One card nearly fills the screen
+  .dest-card {
+    flex: 0 0 88vw;
+    height: 380px;
+    &:first-child { flex: 0 0 88vw; }
+  }
+
+  // Section headings — prevent overflow on very narrow screens
+  .section-title { font-size: clamp(28px, 8vw, 60px); }
+
+  // App badges stack vertically
+  .app-badges { gap: 10px; }
+  .app-badge  { padding: 10px 16px; }
+}

@@ -1,8 +1,8 @@
 /* global gsap, ScrollTrigger */
 import '../css/styles.scss';
 
-// ─── Slide Data ───────────────────────────────────────────────────
-const data = [
+// ─── Hero Slider Data ─────────────────────────────────────────────
+const heroData = [
     {
         image: 'assets/images/slide-1.jpg',
         place: 'Dhaka Division',
@@ -69,15 +69,39 @@ const data = [
     }
 ];
 
+// ─── Destinations Data (unique images, never repeats hero slides) ──
+const destData = [
+    { image: 'assets/images/dest-1.jpg', place: 'Dhaka',          title1: 'Old',       title2: 'Dhaka'       },
+    { image: 'assets/images/dest-2.jpg', place: "Cox's Bazar",    title1: "World's",   title2: 'Longest Beach'},
+    { image: 'assets/images/dest-3.jpg', place: 'Sylhet',         title1: 'Tea',       title2: 'Gardens'     },
+    { image: 'assets/images/dest-4.jpg', place: 'Bandarban',      title1: 'Boga',      title2: 'Lake'        },
+    { image: 'assets/images/dest-5.jpg', place: 'Sundarbans',     title1: 'Tiger',     title2: 'Reserve'     },
+    { image: 'assets/images/dest-6.jpg', place: 'Rangamati',      title1: 'Kaptai',    title2: 'Lake'        },
+    { image: 'assets/images/dest-7.jpg', place: "Saint Martin's", title1: 'Coral',     title2: 'Island'      },
+    { image: 'assets/images/dest-8.jpg', place: 'Rajshahi',       title1: 'Paharpur',  title2: 'Monastery'   },
+];
+
+// ─── Gallery Data (unique images, never repeats hero or dest) ─────
+const galleryData = [
+    { image: 'assets/images/gallery-1.jpg' },
+    { image: 'assets/images/gallery-2.jpg' },
+    { image: 'assets/images/gallery-3.jpg' },
+    { image: 'assets/images/gallery-4.jpg' },
+    { image: 'assets/images/gallery-5.jpg' },
+    { image: 'assets/images/gallery-6.jpg' },
+    { image: 'assets/images/gallery-7.jpg' },
+    { image: 'assets/images/gallery-8.jpg' },
+];
+
 // ─── Utility ──────────────────────────────────────────────────────
 const _ = (id) => document.getElementById(id);
 
 // ─── Populate Hero Slider ─────────────────────────────────────────
-const cards = data.map((item, i) =>
+const cards = heroData.map((item, i) =>
     `<div class="card" id="card${i}" style="background-image:url(${item.image})"></div>`
 ).join('');
 
-const cardContents = data.map((item, i) =>
+const cardContents = heroData.map((item, i) =>
     `<div class="card-content" id="card-content-${i}">
         <div class="content-start"></div>
         <div class="content-place">${item.place}</div>
@@ -86,7 +110,7 @@ const cardContents = data.map((item, i) =>
     </div>`
 ).join('');
 
-const slideNumbers = data.map((_, i) =>
+const slideNumbers = heroData.map((_, i) =>
     `<div class="item" id="slide-item-${i}">${i + 1}</div>`
 ).join('');
 
@@ -95,7 +119,7 @@ _('slide-numbers').innerHTML = slideNumbers;
 
 // ─── Populate Destinations Grid ───────────────────────────────────
 const destGrid = _('destinations-grid');
-data.forEach((item, i) => {
+destData.forEach((item) => {
     const card = document.createElement('div');
     card.className = 'dest-card';
     card.innerHTML = `
@@ -115,7 +139,7 @@ data.forEach((item, i) => {
 
 // ─── Populate Gallery Mosaic ──────────────────────────────────────
 const galleryMosaic = _('gallery-mosaic');
-data.forEach((item, i) => {
+galleryData.forEach((item) => {
     const div = document.createElement('div');
     div.className = 'gallery-item';
     div.innerHTML = `
@@ -149,7 +173,7 @@ function animate(target, duration, props) {
     });
 }
 
-let order       = range(data.length);
+let order       = range(heroData.length);
 let detailsEven = true;
 
 let offsetTop   = 200;
@@ -162,10 +186,10 @@ const ease      = 'sine.inOut';
 
 function updateSlideText(index) {
     const active = detailsEven ? '#details-even' : '#details-odd';
-    document.querySelector(`${active} .place-box .text`).textContent  = data[index].place;
-    document.querySelector(`${active} .title-1`).textContent          = data[index].title1;
-    document.querySelector(`${active} .title-2`).textContent          = data[index].title2;
-    document.querySelector(`${active} .desc`).textContent             = data[index].description;
+    document.querySelector(`${active} .place-box .text`).textContent  = heroData[index].place;
+    document.querySelector(`${active} .title-1`).textContent          = heroData[index].title1;
+    document.querySelector(`${active} .title-2`).textContent          = heroData[index].title2;
+    document.querySelector(`${active} .desc`).textContent             = heroData[index].description;
 }
 
 function init() {
@@ -175,10 +199,23 @@ function init() {
     updateSlideText(active);
 
     const { innerHeight: height, innerWidth: width } = window;
-    offsetTop  = height - 430;
-    offsetLeft = width  - 830;
+    const isMobile = width < 768;
 
-    gsap.set('#pagination',  { top: offsetTop + 330, left: offsetLeft, y: 200, opacity: 0, zIndex: 60 });
+    // Mobile: compact thumbnail strip pinned near the bottom
+    // Size cards to exactly fill the available width (12px side padding each side)
+    if (isMobile) {
+        const thumbCount = heroData.length - 1;  // 7 thumbnails (1 card is active full-screen)
+        gap       = 5;
+        cardWidth = Math.floor((width - 24 - gap * (thumbCount - 1)) / thumbCount);
+        cardHeight = Math.round(cardWidth * 1.42); // ~1.4:1 portrait ratio
+    }
+
+    offsetTop  = isMobile ? height - cardHeight - 24 : height - 430;
+    offsetLeft = isMobile ? 12                        : width  - 830;
+
+    const paginTop  = isMobile ? height - cardHeight - 108 : offsetTop + 330;
+    const paginLeft = isMobile ? 14                         : offsetLeft;
+    gsap.set('#pagination',  { top: paginTop, left: paginLeft, y: 200, opacity: 0, zIndex: 60 });
     gsap.set('#navbar',      { y: -200, opacity: 0 });
 
     gsap.set(getCard(active),        { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight });
@@ -354,7 +391,7 @@ async function loadImage(src) {
 
 async function start() {
     try {
-        await Promise.all(data.map(({ image }) => loadImage(image)));
+        await Promise.all(heroData.map(({ image }) => loadImage(image)));
         init();
     } catch (err) {
         console.error('One or more images failed to load', err);
@@ -504,6 +541,9 @@ document.querySelectorAll('.exp-panel .exp-bg').forEach(bg => {
     const fillBar       = document.getElementById('dest-h-fill');
     const counterEl     = document.getElementById('dest-h-counter');
     if (!destSection || !destGrid) return;
+
+    // Mobile: CSS touch-scroll handles it — skip GSAP pin
+    if (window.innerWidth < 768) return;
 
     // Wait one rAF so the flex layout has rendered widths
     requestAnimationFrame(() => {
