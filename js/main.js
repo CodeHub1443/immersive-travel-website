@@ -590,16 +590,18 @@ gsap.from('.gallery-item', {
     }
 });
 
-// Info cards stagger
+// Info cards stagger — clearProps ensures no residual y-transform lingers on card 4
 gsap.from('.info-card', {
     opacity: 0,
-    y: 50,
-    stagger: 0.12,
-    duration: 0.7,
+    y: 40,
+    stagger: 0.1,
+    duration: 0.65,
     ease: 'power2.out',
+    clearProps: 'transform,opacity',
     scrollTrigger: {
         trigger: '.info-cards-row',
-        start: 'top 80%'
+        start: 'top 80%',
+        once: true
     }
 });
 
@@ -797,3 +799,4 @@ document.querySelectorAll('.dest-card').forEach((card, i) => {
     num.textContent = String(i + 1).padStart(2, '0');
     card.appendChild(num);
 });
+

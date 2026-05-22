@@ -474,6 +474,7 @@ button { cursor: pointer; font-family: inherit; }
   text-align: center;
   margin-bottom: 60px;
   .section-subtitle { margin-inline: auto; }
+
 }
 
 // Shared reveal animation
@@ -493,7 +494,17 @@ button { cursor: pointer; font-family: inherit; }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  // overflow: hidden removed — use the .parallax-clip wrapper to
+  // contain only the background, so the content (grid, cards) is
+  // never accidentally clipped at the section boundary.
+
+  // Clip wrapper sits behind all content and constrains only the bg
+  .parallax-clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
 
   .parallax-bg {
     position: absolute;
@@ -1181,9 +1192,13 @@ button { cursor: pointer; font-family: inherit; }
 .info-card {
   background: rgba(255,255,255,0.06);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 20px;
   padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   transition: background 0.3s, transform 0.3s, border-color 0.3s;
 
   &:hover {
@@ -1196,9 +1211,12 @@ button { cursor: pointer; font-family: inherit; }
     width: 30px;
     height: 30px;
     margin-bottom: 16px;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
     color: $gold;
-    svg { width: 100%; height: 100%; }
+    svg { width: 100%; height: 100%; display: block; }
   }
 
   h4 {
