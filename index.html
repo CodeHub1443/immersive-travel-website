@@ -2,120 +2,838 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Globe Express</title>
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="css/styles.scss" />
-    <script type="module" src="js/main.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visit Bangladesh — Beauty Lies Here</title>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="css/styles.scss" />
+  <script type="module" src="js/main.js"></script>
 </head>
 
 <body>
-    <div class="indicator"></div>
 
-    <nav>
-        <div>
-            <div class="svg-container">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                </svg>
-            </div>
-            <div>Globe Express</div>
-        </div>
-        <div>
-            <div class="active">Home</div>
-            <div>Holidays</div>
-            <div>Destinations</div>
-            <div>Flights</div>
-            <div>Offers</div>
-            <div>Contact</div>
-            <div class="svg-container">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-            </div>
-            <div class="svg-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                        clip-rule="evenodd" />
-                </svg>
-            </div>
-        </div>
-    </nav>
+  <!-- Loading progress bar -->
+  <div class="indicator"></div>
 
+  <!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-brand">
+      <div class="nav-logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.5"/>
+          <ellipse cx="16" cy="16" rx="5.5" ry="13" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="3" y1="16" x2="29" y2="16" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M5 10.5 Q16 13.5 27 10.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          <path d="M5 21.5 Q16 18.5 27 21.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        </svg>
+      </div>
+      <div class="nav-brand-text">
+        <span class="brand-visit">Visit</span><span class="brand-bd">Bangladesh</span>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#hero"         class="nav-link active">Home</a>
+      <a href="#destinations" class="nav-link">Destinations</a>
+      <a href="#experiences"  class="nav-link">Experiences</a>
+      <a href="#booking"      class="nav-link">Booking</a>
+      <a href="#gallery"      class="nav-link">Gallery</a>
+      <a href="#contact"      class="nav-link">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+        </svg>
+      </button>
+      <button class="nav-book-btn">Book Now</button>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#hero"         class="mobile-link">Home</a>
+    <a href="#destinations" class="mobile-link">Destinations</a>
+    <a href="#experiences"  class="mobile-link">Experiences</a>
+    <a href="#booking"      class="mobile-link">Booking</a>
+    <a href="#gallery"      class="mobile-link">Gallery</a>
+    <a href="#contact"      class="mobile-link">Contact</a>
+    <button class="mobile-book-btn">Book Now</button>
+  </div>
+
+  <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+  <section id="hero">
     <div id="demo"></div>
 
     <div class="details" id="details-even">
-        <div class="place-box">
-            <div class="text"></div>
-        </div>
-        <div class="title-box-1">
-            <div class="title-1"></div>
-        </div>
-        <div class="title-box-2">
-            <div class="title-2"></div>
-        </div>
-        <div class="desc"></div>
-        <div class="cta">
-            <button class="bookmark">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
-                        clip-rule="evenodd" />
-                </svg>
-            </button>
-            <button class="discover">Discover Location</button>
-        </div>
+      <div class="place-box"><div class="text"></div></div>
+      <div class="title-box-1"><div class="title-1"></div></div>
+      <div class="title-box-2"><div class="title-2"></div></div>
+      <div class="desc"></div>
+      <div class="cta">
+        <button class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <button class="discover">Discover Location</button>
+      </div>
     </div>
 
     <div class="details" id="details-odd">
-        <div class="place-box">
-            <div class="text"></div>
-        </div>
-        <div class="title-box-1">
-            <div class="title-1"></div>
-        </div>
-        <div class="title-box-2">
-            <div class="title-2"></div>
-        </div>
-        <div class="desc"></div>
-        <div class="cta">
-            <button class="bookmark">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
-                        clip-rule="evenodd" />
-                </svg>
-            </button>
-            <button class="discover">Discover Location</button>
-        </div>
+      <div class="place-box"><div class="text"></div></div>
+      <div class="title-box-1"><div class="title-1"></div></div>
+      <div class="title-box-2"><div class="title-2"></div></div>
+      <div class="desc"></div>
+      <div class="cta">
+        <button class="bookmark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <button class="discover">Discover Location</button>
+      </div>
     </div>
 
     <div class="pagination" id="pagination">
-        <div class="arrow arrow-left">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
+      <div class="arrow arrow-left">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+        </svg>
+      </div>
+      <div class="arrow arrow-right">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+        </svg>
+      </div>
+      <div class="progress-sub-container">
+        <div class="progress-sub-background">
+          <div class="progress-sub-foreground"></div>
         </div>
-        <div class="arrow arrow-right">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-        </div>
-        <div class="progress-sub-container">
-            <div class="progress-sub-background">
-                <div class="progress-sub-foreground"></div>
-            </div>
-        </div>
-        <div class="slide-numbers" id="slide-numbers"></div>
+      </div>
+      <div class="slide-numbers" id="slide-numbers"></div>
     </div>
 
     <div class="cover"></div>
-</body>
 
+    <!-- Scroll hint -->
+    <div class="scroll-hint" id="scroll-hint">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll to Explore</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ DESTINATIONS ═══════════════════════ -->
+  <section id="destinations">
+    <div class="dest-header">
+      <div data-reveal>
+        <span class="section-label">Explore</span>
+        <h2 class="section-title">Top Destinations</h2>
+      </div>
+      <div class="dest-scroll-hint" data-reveal>
+        <span>Scroll to explore</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="dest-h-viewport">
+      <div class="destinations-grid" id="destinations-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <div class="dest-h-footer">
+      <div class="dest-h-progress">
+        <div class="dest-h-fill" id="dest-h-fill"></div>
+      </div>
+      <span class="dest-h-counter" id="dest-h-counter">1 / 8</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ BOOKING ═══════════════════════ -->
+  <section id="booking">
+    <div class="booking-bg" data-img="assets/images/slide-7.jpg"></div>
+    <div class="booking-overlay"></div>
+    <div class="booking-container">
+      <div class="booking-header" data-reveal>
+        <span class="section-label">Plan Your Visit</span>
+        <h2 class="section-title">Book Your Experience</h2>
+        <p class="section-subtitle">Tours, hotels, and transport — all in one place</p>
+      </div>
+
+      <div class="booking-card" data-reveal>
+        <div class="booking-tabs">
+          <button class="tab-btn active" data-tab="tours">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/>
+            </svg>
+            Tour Packages
+          </button>
+          <button class="tab-btn" data-tab="hotels">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/>
+            </svg>
+            Hotels
+          </button>
+          <button class="tab-btn" data-tab="transport">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/>
+            </svg>
+            Transport
+          </button>
+        </div>
+
+        <!-- Tours tab -->
+        <div class="tab-content active" id="tab-tours">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Destination</label>
+              <select>
+                <option value="">Select Destination</option>
+                <option>Cox's Bazar</option>
+                <option>Sundarbans</option>
+                <option>Sylhet</option>
+                <option>Bandarban</option>
+                <option>Dhaka</option>
+                <option>Sajek Valley</option>
+                <option>Ratargul Swamp Forest</option>
+                <option>Saint Martin's Island</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Departure From</label>
+              <select>
+                <option value="">Select City</option>
+                <option>Dhaka</option>
+                <option>Chittagong</option>
+                <option>Sylhet</option>
+                <option>Rajshahi</option>
+                <option>Khulna</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Check In</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Check Out</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Travelers</label>
+              <div class="counter-widget">
+                <button class="counter-btn" id="dec-travelers">−</button>
+                <span id="traveler-count">2</span>
+                <button class="counter-btn" id="inc-travelers">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full">
+              <label>Package Type</label>
+              <div class="pill-group">
+                <button class="pill active">Standard</button>
+                <button class="pill">Premium</button>
+                <button class="pill">Luxury</button>
+                <button class="pill">Adventure</button>
+              </div>
+            </div>
+          </div>
+          <button class="search-btn">
+            Search Tours
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Hotels tab -->
+        <div class="tab-content" id="tab-hotels">
+          <div class="form-row">
+            <div class="form-group">
+              <label>City / Area</label>
+              <select>
+                <option value="">Select Location</option>
+                <option>Cox's Bazar Beach</option>
+                <option>Dhaka — Gulshan</option>
+                <option>Dhaka — Banani</option>
+                <option>Sylhet City</option>
+                <option>Bandarban Hills</option>
+                <option>Chittagong Port</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Star Rating</label>
+              <select>
+                <option value="">Any Rating</option>
+                <option>5 Star</option>
+                <option>4 Star</option>
+                <option>3 Star</option>
+                <option>Budget Friendly</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Check In</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Check Out</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Rooms</label>
+              <div class="counter-widget">
+                <button class="counter-btn" id="dec-rooms">−</button>
+                <span id="room-count">1</span>
+                <button class="counter-btn" id="inc-rooms">+</button>
+              </div>
+            </div>
+          </div>
+          <button class="search-btn">
+            Search Hotels
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Transport tab -->
+        <div class="tab-content" id="tab-transport">
+          <div class="form-row">
+            <div class="form-group">
+              <label>From</label>
+              <select>
+                <option value="">Select Origin</option>
+                <option>Dhaka</option>
+                <option>Chittagong</option>
+                <option>Sylhet</option>
+                <option>Rajshahi</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>To</label>
+              <select>
+                <option value="">Select Destination</option>
+                <option>Cox's Bazar</option>
+                <option>Sundarbans (Khulna)</option>
+                <option>Sylhet</option>
+                <option>Bandarban</option>
+                <option>Saint Martin's Island</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Travel Date</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Mode of Transport</label>
+              <div class="pill-group">
+                <button class="pill active">Bus</button>
+                <button class="pill">Train</button>
+                <button class="pill">Flight</button>
+                <button class="pill">Boat</button>
+              </div>
+            </div>
+          </div>
+          <button class="search-btn">
+            Search Transport
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </button>
+        </div>
+      </div><!-- /booking-card -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ EXPERIENCES ═══════════════════════ -->
+  <section id="experiences">
+    <div class="section-header" data-reveal>
+      <span class="section-label">Discover</span>
+      <h2 class="section-title">Unique Experiences</h2>
+      <p class="section-subtitle">Every corner of Bangladesh tells a different story</p>
+    </div>
+    <div class="experiences-grid">
+      <div class="exp-panel">
+        <div class="exp-bg" data-img="assets/images/slide-4.jpg"></div>
+        <div class="exp-overlay"></div>
+        <div class="exp-content" data-reveal>
+          <div class="exp-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3>Wildlife &amp; Sundarbans</h3>
+          <p>Track the Royal Bengal Tiger through the world's largest mangrove delta. Witness crocodiles, spotted deer, and exotic birds in their natural habitat.</p>
+          <button class="exp-btn">Learn More</button>
+        </div>
+      </div>
+      <div class="exp-panel">
+        <div class="exp-bg" data-img="assets/images/slide-5.jpg"></div>
+        <div class="exp-overlay"></div>
+        <div class="exp-content" data-reveal>
+          <div class="exp-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+            </svg>
+          </div>
+          <h3>Cox's Bazar &amp; Islands</h3>
+          <p>Walk 120 km of unbroken golden sand — the world's longest natural sea beach. Dive into coral reefs at Saint Martin's Island or watch dolphins at dawn.</p>
+          <button class="exp-btn">Learn More</button>
+        </div>
+      </div>
+      <div class="exp-panel">
+        <div class="exp-bg" data-img="assets/images/slide-3.jpg"></div>
+        <div class="exp-overlay"></div>
+        <div class="exp-content" data-reveal>
+          <div class="exp-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.306a11.95 11.95 0 015.814-5.518l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941"/>
+            </svg>
+          </div>
+          <h3>Hill Tracts &amp; Sajek</h3>
+          <p>Rise above the clouds in Sajek Valley, the roof of Bangladesh. Explore tribal culture, dense bamboo forests, and mist-covered mountain peaks at sunrise.</p>
+          <button class="exp-btn">Learn More</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FACTS / PARALLAX ═══════════════════════ -->
+  <section id="facts" class="parallax-section">
+    <div class="parallax-bg" data-img="assets/images/slide-8.jpg"></div>
+    <div class="parallax-overlay dark-overlay"></div>
+    <div class="facts-inner">
+      <div class="section-header" data-reveal>
+        <span class="section-label">By the Numbers</span>
+        <h2 class="section-title">Bangladesh in Facts</h2>
+      </div>
+      <div class="facts-grid">
+        <div class="fact-card" data-reveal>
+          <div class="fact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+            </svg>
+          </div>
+          <div class="fact-row">
+            <span class="fact-number" data-count="120">0</span>
+            <span class="fact-unit">km</span>
+          </div>
+          <p class="fact-label">World's Longest Natural Sea Beach</p>
+        </div>
+        <div class="fact-card" data-reveal>
+          <div class="fact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/>
+            </svg>
+          </div>
+          <div class="fact-row">
+            <span class="fact-number" data-count="10000">0</span>
+            <span class="fact-unit">km²</span>
+          </div>
+          <p class="fact-label">Sundarbans Mangrove Forest Area</p>
+        </div>
+        <div class="fact-card" data-reveal>
+          <div class="fact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
+            </svg>
+          </div>
+          <div class="fact-row">
+            <span class="fact-number" data-count="3">0</span>
+            <span class="fact-unit"></span>
+          </div>
+          <p class="fact-label">UNESCO World Heritage Sites</p>
+        </div>
+        <div class="fact-card" data-reveal>
+          <div class="fact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+            </svg>
+          </div>
+          <div class="fact-row">
+            <span class="fact-number" data-count="114">0</span>
+            <span class="fact-unit">+</span>
+          </div>
+          <p class="fact-label">Royal Bengal Tigers in the Wild</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ GALLERY ═══════════════════════ -->
+  <section id="gallery">
+    <div class="section-header" data-reveal>
+      <span class="section-label">Visual Journey</span>
+      <h2 class="section-title">A Land of Wonder</h2>
+      <p class="section-subtitle">Let the landscapes speak for themselves</p>
+    </div>
+    <div class="gallery-mosaic" id="gallery-mosaic">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ TOURISM INFO / PARALLAX ═══════════════════════ -->
+  <section id="tourism-info" class="parallax-section">
+    <div class="parallax-bg" data-img="assets/images/slide-2.jpg"></div>
+    <div class="parallax-overlay dark-overlay"></div>
+    <div class="info-inner" data-reveal>
+      <div class="section-header">
+        <span class="section-label">Travel Guide</span>
+        <h2 class="section-title">Everything You Need to Know</h2>
+      </div>
+      <div class="info-cards-row">
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+            </svg>
+          </div>
+          <h4>Best Time to Visit</h4>
+          <p>October to March brings cool, dry weather perfect for exploration. Monsoon season (June–September) transforms the hills into dramatic waterfalls.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>
+            </svg>
+          </div>
+          <h4>Budget Friendly</h4>
+          <p>Bangladesh offers incredible value. Enjoy authentic cuisine, luxury resorts, and stunning destinations at a fraction of the cost of neighbouring countries.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+            </svg>
+          </div>
+          <h4>Cuisine &amp; Culture</h4>
+          <p>From Hilsha fish biryani to Mishti Doi, Bengali cuisine is a feast of flavour. The warmth of the people transforms every meal into a cultural celebration.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+            </svg>
+          </div>
+          <h4>Safe &amp; Welcoming</h4>
+          <p>Bangladeshis are renowned for their hospitality. Tourist-friendly infrastructure and improved connectivity make travel easier than ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ APP DOWNLOAD ═══════════════════════ -->
+  <section id="app-download">
+    <div class="app-bg-glow"></div>
+    <div class="app-download-inner">
+
+      <!-- Left: Text & Badges -->
+      <div class="app-text-col" data-reveal>
+        <span class="section-label">Mobile App</span>
+        <h2 class="section-title">Bangladesh<br>in Your Pocket</h2>
+        <p class="app-desc-text">
+          Plan trips, discover hidden gems, book tours, and navigate Bangladesh
+          seamlessly — all from our beautifully designed mobile app.
+        </p>
+
+        <ul class="app-features">
+          <li>
+            <span class="app-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+              </svg>
+            </span>
+            <div><strong>Offline Maps</strong><small>Navigate without internet</small></div>
+          </li>
+          <li>
+            <span class="app-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </span>
+            <div><strong>Instant Booking</strong><small>Tours, hotels &amp; transport</small></div>
+          </li>
+          <li>
+            <span class="app-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/>
+              </svg>
+            </span>
+            <div><strong>Reviews &amp; Guides</strong><small>Curated local insights</small></div>
+          </li>
+          <li>
+            <span class="app-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"/>
+              </svg>
+            </span>
+            <div><strong>Live Weather</strong><small>Real-time updates</small></div>
+          </li>
+        </ul>
+
+        <div class="app-badges">
+          <a href="#" class="app-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.18 23.76c.3.17.65.2.97.08l13.08-7.4-2.83-2.85-11.22 10.17zM.44 1.4A1.49 1.49 0 0 0 0 2.46v19.08c0 .38.15.74.44 1.06l.06.06L11.18 12l-.06-.06L.5 1.34l-.06.06zm21.1 9.38-2.96-1.68-3.16 3.09 3.16 3.09 3-1.7a1.5 1.5 0 0 0 0-2.8zM4.15.24L17.23 7.64 14.4 10.47 3.18.3A1.5 1.5 0 0 1 4.15.24z"/>
+            </svg>
+            <div>
+              <small>GET IT ON</small>
+              <strong>Google Play</strong>
+            </div>
+          </a>
+          <a href="#" class="app-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            <div>
+              <small>Download on the</small>
+              <strong>App Store</strong>
+            </div>
+          </a>
+        </div>
+
+        <div class="app-rating-row">
+          <div class="app-stars">
+            <svg viewBox="0 0 80 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1l1.85 3.75 4.15.6-3 2.92.71 4.13L8 10.27l-3.71 1.95.71-4.13-3-2.92 4.15-.6z" fill="#ecad29"/>
+              <path d="M24 1l1.85 3.75 4.15.6-3 2.92.71 4.13L24 10.27l-3.71 1.95.71-4.13-3-2.92 4.15-.6z" fill="#ecad29"/>
+              <path d="M40 1l1.85 3.75 4.15.6-3 2.92.71 4.13L40 10.27l-3.71 1.95.71-4.13-3-2.92 4.15-.6z" fill="#ecad29"/>
+              <path d="M56 1l1.85 3.75 4.15.6-3 2.92.71 4.13L56 10.27l-3.71 1.95.71-4.13-3-2.92 4.15-.6z" fill="#ecad29"/>
+              <path d="M72 1l1.85 3.75 4.15.6-3 2.92.71 4.13L72 10.27l-3.71 1.95.71-4.13-3-2.92 4.15-.6z" fill="#ecad29" fill-opacity="0.35"/>
+              <path d="M72 1l1.85 3.75 4.15.6-3 2.92.71 4.13L72 10.27V1z" fill="#ecad29"/>
+            </svg>
+          </div>
+          <span class="app-rating-text">4.8 · 50K+ downloads · Free</span>
+        </div>
+      </div>
+
+      <!-- Right: Phone Mockup -->
+      <div class="app-mockup-col" data-reveal>
+        <div class="phone-float-wrap">
+
+          <!-- Floating UI chips -->
+          <div class="phone-chip chip-top">
+            <span class="chip-dot"></span>
+            <span>Live Tour Available</span>
+          </div>
+          <div class="phone-chip chip-bottom">
+            <span class="chip-rating">4.7</span>
+            <span class="chip-sep">|</span>
+            <span>Rangamati</span>
+          </div>
+
+          <!-- Phone frame -->
+          <div class="phone-frame">
+            <div class="phone-island"></div>
+
+            <!-- App screen UI — matches the screenshot -->
+            <div class="app-screen">
+
+              <!-- Hero image area -->
+              <div class="app-hero-zone">
+                <div class="app-hero-img" style="background-image:url(assets/images/slide-3.jpg)"></div>
+                <div class="app-hero-overlay"></div>
+
+                <!-- Right thumbnails -->
+                <div class="app-thumbs">
+                  <div class="app-thumb" style="background-image:url(assets/images/slide-5.jpg)"></div>
+                  <div class="app-thumb" style="background-image:url(assets/images/slide-7.jpg)"></div>
+                  <div class="app-thumb app-thumb-active" style="background-image:url(assets/images/slide-3.jpg)"></div>
+                </div>
+
+                <!-- Location overlay -->
+                <div class="app-loc-overlay">
+                  <h3 class="app-loc-title">Rangamati</h3>
+                  <p class="app-loc-sub">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="10" height="10"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"/></svg>
+                    Chittagong Hill Tracts
+                  </p>
+                </div>
+
+                <!-- Status bar -->
+                <div class="app-status-bar">
+                  <span>12:36</span>
+                  <div class="app-status-icons">
+                    <svg width="16" height="12" fill="white" viewBox="0 0 24 18"><rect x="0" y="6" width="4" height="12" rx="1"/><rect x="6" y="4" width="4" height="14" rx="1"/><rect x="12" y="2" width="4" height="16" rx="1"/><rect x="18" y="0" width="4" height="18" rx="1"/></svg>
+                    <svg width="16" height="12" fill="white" viewBox="0 0 24 16"><path d="M12 3C8.2 3 4.8 4.5 2.3 6.9L0 4.6C3.1 1.8 7.3 0 12 0s8.9 1.8 12 4.6l-2.3 2.3C19.2 4.5 15.8 3 12 3zm0 6c-2.2 0-4.2.9-5.7 2.3L4 9c2.1-2 5-3.3 8-3.3s5.9 1.3 8 3.3l-2.3 2.3C16.2 9.9 14.2 9 12 9zm0 6l-3-3c.8-.8 1.9-1.3 3-1.3s2.2.5 3 1.3l-3 3z"/></svg>
+                    <svg width="24" height="12" fill="none" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23 4v4c1.1-.5 1.1-3.5 0-4z" fill="white" fill-opacity="0.4"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- App card body -->
+              <div class="app-card-body">
+                <div class="app-stat-row">
+                  <div class="app-stat"><small>Distance</small><strong>350 Km</strong></div>
+                  <div class="app-stat-sep"></div>
+                  <div class="app-stat"><small>Temp</small><strong>26° C</strong></div>
+                  <div class="app-stat-sep"></div>
+                  <div class="app-stat"><small>Rating</small><strong>4.7</strong></div>
+                </div>
+
+                <div class="app-desc-section">
+                  <h4>Description</h4>
+                  <p>Perched above the shimmering Kaptai Lake, Rangamati is a mosaic of mist-covered hills, colourful Chakma culture, and serene waterways.</p>
+                  <a class="app-read-more">Read More</a>
+                </div>
+
+                <div class="app-tags">
+                  <span>Kaptai Lake</span>
+                  <span>Chakma Culture</span>
+                  <span>Hanging Bridge</span>
+                  <span>Tribal Market</span>
+                </div>
+
+                <div class="app-booking-bar">
+                  <div class="app-price">
+                    <small>Starting from</small>
+                    <strong>৳2,800</strong>
+                  </div>
+                  <button class="app-go-btn">→</button>
+                </div>
+              </div>
+
+            </div><!-- /app-screen -->
+          </div><!-- /phone-frame -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ NEWSLETTER ═══════════════════════ -->
+  <section id="newsletter">
+    <div class="newsletter-inner" data-reveal>
+      <span class="section-label">Stay Updated</span>
+      <h2 class="section-title">Start Your Bangladesh Journey</h2>
+      <p>Get destination guides, travel tips, and exclusive deals delivered to your inbox.</p>
+      <form class="newsletter-form" onsubmit="return false">
+        <input type="email" placeholder="Enter your email address" />
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer id="contact">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-logo">
+          <span class="brand-visit">Visit</span><span class="brand-bd">Bangladesh</span>
+        </div>
+        <p class="footer-tagline">Beauty Lies Here</p>
+        <p class="footer-desc">Discover the soul of South Asia — rivers, forests, beaches, and hills, all woven together by the warmth of its people.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </a>
+          <a href="#" aria-label="X/Twitter" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-group">
+        <h5>Destinations</h5>
+        <ul>
+          <li><a href="#">Cox's Bazar</a></li>
+          <li><a href="#">Sundarbans</a></li>
+          <li><a href="#">Sylhet</a></li>
+          <li><a href="#">Bandarban</a></li>
+          <li><a href="#">Dhaka</a></li>
+          <li><a href="#">Saint Martin's Island</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h5>Experiences</h5>
+        <ul>
+          <li><a href="#">Wildlife &amp; Safaris</a></li>
+          <li><a href="#">Beach Retreats</a></li>
+          <li><a href="#">Hill Trekking</a></li>
+          <li><a href="#">Cultural Tours</a></li>
+          <li><a href="#">River Cruises</a></li>
+          <li><a href="#">Tea Garden Walks</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h5>Travel Info</h5>
+        <ul>
+          <li><a href="#">Visa &amp; Entry</a></li>
+          <li><a href="#">Best Time to Visit</a></li>
+          <li><a href="#">Getting Around</a></li>
+          <li><a href="#">Safety Tips</a></li>
+          <li><a href="#">Currency &amp; Costs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h5>Contact Us</h5>
+        <ul class="footer-contact-list">
+          <li>
+            <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></span>
+            Bangladesh Tourism Board, Dhaka
+          </li>
+          <li>
+            <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 6.75z"/></svg></span>
+            +880 2 9887755
+          </li>
+          <li>
+            <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></span>
+            info@visitbangladesh.gov.bd
+          </li>
+          <li>
+            <span class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+            Sun–Thu, 9 AM – 5 PM BST
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 Visit Bangladesh Tourism Board. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Side navigation dots -->
+  <nav class="side-nav" id="side-nav" aria-label="Section navigation">
+    <div class="side-dot" data-section="hero"         title="Home"></div>
+    <div class="side-dot" data-section="discover"     title="Discover"></div>
+    <div class="side-dot" data-section="destinations" title="Destinations"></div>
+    <div class="side-dot" data-section="booking"      title="Booking"></div>
+    <div class="side-dot" data-section="experiences"  title="Experiences"></div>
+    <div class="side-dot" data-section="facts"        title="Facts"></div>
+    <div class="side-dot" data-section="gallery"      title="Gallery"></div>
+    <div class="side-dot" data-section="app-download" title="App"></div>
+  </nav>
+
+</body>
 </html>
